@@ -1,4 +1,4 @@
-import { AvenxApp } from './runtime.js';
+import { AvenxApp } from '../.avenx/runtime/index.js';
 import Source from './components/Source.axt';
 import Display from './components/Display.axt';
 
