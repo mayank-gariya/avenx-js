@@ -21,9 +21,6 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: install dependencies
-        run: npm ci
-
       - name: run tests
         run: npm test
 
@@ -40,9 +37,6 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org/'
-
-      - name: install dependencies
-        run: npm ci
 
       - name: deploy on npm
         run: npm publish
