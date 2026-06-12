@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "test": "node test/cli.test.js",
-    "bench": "node benches/run.js"
+    "bench": "node benches/run.js",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "keywords": [
     "reactive",
@@ -44,5 +45,8 @@
   "bugs": {
     "url": "https://github.com/avenx-js/avenx-js/issues"
   },
-  "homepage": "https://avenx-js.com/"
+  "homepage": "https://avenx-js.com/",
+  "devDependencies": {
+    "jsdoc": "^4.0.2"
+  }
 }
