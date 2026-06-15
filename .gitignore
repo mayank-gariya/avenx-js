@@ -5,6 +5,7 @@ showcase/
 
 # documentation
 docs/
+coverage/
 
 # node & npm
 node_modules/
