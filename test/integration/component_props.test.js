@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
 const { AvenxPage } = require('../../lib/core/runtime/AvenxPage');
+const { AvenxApp } = require('../../lib/core/runtime/AvenxApp');
 const StyleProcessor = require('../../lib/compiler/StyleProcessor');
 const ComponentParser = require('../../lib/compiler/ComponentParser');
 
@@ -650,6 +651,80 @@ global.Node = {
     assert.strictEqual(childEl.textContent.trim(), 'Card [Direct Title]: Bob (Age: 30)');
 
     console.log('  ✅ Component Props tests passed!');
+
+    // 3. Testing Targeted Bridge Updates and Reactivity (no updateAll)
+    console.log('  Testing targeted updates for registered bridges...');
+    const app = new AvenxApp({ target: '#app' });
+    app.registerBridge('AppBridge', {
+      user: 'Alice',
+      theme: 'dark',
+    });
+
+    let comp1Renders = 0;
+    let comp2Renders = 0;
+
+    class BridgeComp1 extends AvenxComponent {
+      constructor(bridges) {
+        super({}, {}, bridges, '<div>User: {{ AppBridge.user }}</div>');
+      }
+      runUpdate() {
+        comp1Renders++;
+        super.runUpdate();
+      }
+    }
+
+    class BridgeComp2 extends AvenxComponent {
+      constructor(bridges) {
+        super({}, {}, bridges, '<div>Theme: {{ AppBridge.theme }}</div>');
+      }
+      runUpdate() {
+        comp2Renders++;
+        super.runUpdate();
+      }
+    }
+
+    app.register('BridgeComp1', BridgeComp1);
+    app.register('BridgeComp2', BridgeComp2);
+
+    const bTarget1 = createMockElementNode('div');
+    const bTarget2 = createMockElementNode('div');
+
+    const bComp1 = new BridgeComp1(app.bridges);
+    const bComp2 = new BridgeComp2(app.bridges);
+
+    bComp1.mount(bTarget1);
+    bComp2.mount(bTarget2);
+
+    bComp1.update();
+    bComp2.update();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    assert.strictEqual(comp1Renders, 1, 'BridgeComp1 should render once initially');
+    assert.strictEqual(comp2Renders, 1, 'BridgeComp2 should render once initially');
+    assert.strictEqual(bTarget1.textContent.trim(), 'User: Alice');
+    assert.strictEqual(bTarget2.textContent.trim(), 'Theme: dark');
+
+    // Mutate only 'user' on the bridge
+    app.bridges.AppBridge.user = 'Bob';
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    // Verify only BridgeComp1 re-rendered and updated its DOM content
+    assert.strictEqual(comp1Renders, 2, 'BridgeComp1 should re-render after user mutation');
+    assert.strictEqual(comp2Renders, 1, 'BridgeComp2 should NOT re-render on user mutation (no updateAll)');
+    assert.strictEqual(bTarget1.textContent.trim(), 'User: Bob');
+    assert.strictEqual(bTarget2.textContent.trim(), 'Theme: dark');
+
+    // Mutate only 'theme' on the bridge
+    app.bridges.AppBridge.theme = 'light';
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    // Verify only BridgeComp2 re-rendered and updated its DOM content
+    assert.strictEqual(comp1Renders, 2, 'BridgeComp1 should NOT re-render on theme mutation');
+    assert.strictEqual(comp2Renders, 2, 'BridgeComp2 should re-render after theme mutation');
+    assert.strictEqual(bTarget1.textContent.trim(), 'User: Bob');
+    assert.strictEqual(bTarget2.textContent.trim(), 'Theme: light');
+
+    console.log('  ✅ Targeted bridge updates integration tests passed!');
   } catch (error) {
     console.error('❌ Component Props tests failed!');
     console.error(error);
