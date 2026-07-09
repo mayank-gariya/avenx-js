@@ -18,7 +18,7 @@ This creates a file in `src/global/auth.bridge.js`. The generated bridge uses th
 
 ```javascript
 // src/global/auth.bridge.js
-import { AvenxBridge } from 'avenx';
+import { AvenxBridge } from 'avenx-core/runtime';
 
 export default class AuthBridge extends AvenxBridge {
   constructor() {
