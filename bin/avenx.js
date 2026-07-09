@@ -7,6 +7,7 @@ const { exec } = require('child_process');
 const AvenxCompiler = require('../lib/compiler');
 const loadConfig = require('../lib/config');
 const packageJson = require('../package.json');
+const findProjectRoot = loadConfig.findProjectRoot;
 
 const [, , command, ...args] = process.argv;
 
@@ -36,9 +37,9 @@ class AvenxCLI {
    * Initializes the base directory and framework directory paths.
    */
   constructor(options = {}) {
-    this.baseDir = options.baseDir || process.cwd();
+    this.baseDir = options.baseDir || findProjectRoot(process.cwd());
     this.frameworkDir = path.join(__dirname, '..');
-    this.config = { ...loadConfig(), ...options };
+    this.config = { ...loadConfig(this.baseDir), ...options };
   }
   /**
    * Reads a template, checking the local .avenxtemplates/ folder first.

@@ -222,6 +222,30 @@ function runTest() {
     assert.ok(!fs.existsSync(pageJsPath), 'Page generation should not create JS after detecting an existing CSS file');
 
     console.log('✅ Custom project-level templates tests passed!');
+
+    console.log('🧪 Testing avenx generate component from a subdirectory...');
+    // Create nested directory to simulate a subdirectory
+    const srcSubdir = path.join(TEST_DIR, 'src');
+    // Run CLI generate component command from the nested 'src' directory
+    execSync(`node ${BIN_PATH} generate component sub-box`, { cwd: srcSubdir });
+
+    // The files should be generated at the actual project root's components directory:
+    // TEST_DIR/src/components/sub-box/
+    const subBoxJsPath = path.join(TEST_DIR, 'src/components/sub-box/sub-box.component.js');
+    const subBoxCssPath = path.join(TEST_DIR, 'src/components/sub-box/sub-box.component.css');
+    assert.ok(fs.existsSync(subBoxJsPath), 'Missing sub-box component JS file at root components dir');
+    assert.ok(fs.existsSync(subBoxCssPath), 'Missing sub-box component CSS file at root components dir');
+
+    // The files should NOT be written to a double nested 'src/src' directory
+    const incorrectNestedDir = path.join(TEST_DIR, 'src/src');
+    assert.ok(!fs.existsSync(incorrectNestedDir), 'Should not create double nested src/src directory');
+
+    // The component should also be correctly registered in src/main.app.js
+    const mainAppContent = fs.readFileSync(path.join(TEST_DIR, 'src/main.app.js'), 'utf-8');
+    assert.ok(mainAppContent.includes("import SubBox from './components/sub-box/sub-box.component.js';"), 'Component should be registered with correct relative path in main.app.js');
+    assert.ok(mainAppContent.includes("app.register('SubBox', SubBox);"), 'Component class should be registered on app');
+
+    console.log('✅ Subdirectory command execution tests passed!');
   } catch (error) {
     console.error('❌ Test failed!');
     console.error(error);
