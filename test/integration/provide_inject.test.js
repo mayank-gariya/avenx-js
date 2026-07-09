@@ -1,7 +1,6 @@
 const assert = require('assert');
 const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
 const { AvenxPage } = require('../../lib/core/runtime/AvenxPage');
-const { AvenxApp } = require('../../lib/core/runtime/AvenxApp');
 
 // ==========================================
 // 1. Lightweight Mock DOM & HTML Parser
