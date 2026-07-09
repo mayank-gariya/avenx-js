@@ -33,6 +33,7 @@ export default defineConfig({
 						{ label: 'Computed Properties', slug: 'core-concepts/computed' },
 						{ label: 'Actions & Event Handling', slug: 'core-concepts/events' },
 						{ label: 'Templates & Slots', slug: 'core-concepts/templates' },
+						{ label: 'Transition Animations', slug: '/core-concepts/transitions' },
 						{ label: 'Scoped & Global CSS', slug: 'core-concepts/styling' },
 						{ label: 'Shared State & Bridges', slug: 'core-concepts/bridges' },
 						{ label: 'Pages & Routing', slug: 'core-concepts/routing' },
