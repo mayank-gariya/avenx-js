@@ -31,4 +31,48 @@ const router = AvenxApp.initRouter(routes, {
 
 ### Methods
 
-- `navigate(hash)`: Programs a
+- ### `Maps(hash)`
+Programs a programmatic navigation to the specified route hash. It updates the browser history and triggers the matching route lifecycle.
+
+### `destroy()`
+Tears down the active router instance. It cleans up all global event listeners (like `hashchange` or `popstate`), unmounts the active route component, and releases internal memory references to prevent leaks.
+
+### `matches(hash)`
+* **Arguments:** `hash: string`
+* **Returns:** `boolean`
+* Evaluates whether a given URL hash matches any registered route pattern in the router configuration. Returns `true` if a match is found, otherwise `false`.
+
+---
+
+## The `AvenxGuard` Class
+
+The `AvenxGuard` class allows you to intercept navigation requests before a route is fully loaded. Custom route guards should extend this base class.
+
+### `canActivate(to, from)`
+This lifecycle method is executed prior to entering a route. 
+
+* **Parameters:**
+  * `to`: The target route object being navigated to.
+  * `from`: The current route object being navigated away from.
+* **Return Values:** The method can return a `boolean`, a `string` (redirect path), or a `Promise` resolving to either:
+  * `true`: Allows the navigation to proceed.
+  * `false`: Cancels the navigation.
+  * `string`: Redirects the user to the specified path/hash (e.g., `'/login'`).
+
+#### Sample Guard Implementation
+
+```javascript
+import { AvenxGuard } from 'avenx';
+
+export class AuthGuard extends AvenxGuard {
+  async canActivate(to, from) {
+    const isAuthenticated = await checkUserSession();
+    
+    if (!isAuthenticated) {
+      // Redirect unauthenticated users to the login hash
+      return '/login'; 
+    }
+    
+    return true; // Allow navigation
+  }
+}
