@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 // Mock DOM environment for AvenxApp
 const mockElement = {
@@ -11,10 +11,10 @@ global.document = {
   querySelector: () => mockElement,
 };
 
-const { isReactiveTarget } = require('../../lib/core/reactive/proxyHandler');
-const { StateFactory } = require('../../lib/core/reactive/createState');
-const { AvenxApp } = require('../../lib/core/runtime/AvenxApp');
-const { AvenxWatcher } = require('../../lib/core/reactive/watcher');
+import { isReactiveTarget } from '../../lib/core/reactive/proxyHandler.js';
+import { StateFactory } from '../../lib/core/reactive/createState.js';
+import { AvenxApp } from '../../lib/core/runtime/AvenxApp.js';
+import { AvenxWatcher } from '../../lib/core/reactive/watcher.js';
 
 /**
  *

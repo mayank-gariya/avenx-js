@@ -1,7 +1,7 @@
-const assert = require('assert');
-const { EventBinder } = require('../../lib/core/events/bindEvents');
-const StyleProcessor = require('../../lib/compiler/StyleProcessor');
-const ComponentParser = require('../../lib/compiler/ComponentParser');
+import assert from 'assert';
+import { EventBinder } from '../../lib/core/events/bindEvents.js';
+import StyleProcessor from '../../lib/compiler/StyleProcessor.js';
+import ComponentParser from '../../lib/compiler/ComponentParser.js';
 
 try {
   console.log('🧪 Testing Event Modifiers...');

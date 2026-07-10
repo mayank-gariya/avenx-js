@@ -1,9 +1,9 @@
-const assert = require('assert');
-const { setupDOMMock, teardownDOMMock, MockDOMElement } = require('../helpers/dom-mock');
-const { DomPatcher } = require('../../lib/core/renderer/domPatch');
-const { AvenxApp } = require('../../lib/core/runtime/AvenxApp');
-const { AvenxPage } = require('../../lib/core/runtime/AvenxPage');
-const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
+import assert from 'assert';
+import { setupDOMMock, teardownDOMMock, MockDOMElement } from '../helpers/dom-mock.js';
+import { DomPatcher } from '../../lib/core/renderer/domPatch.js';
+import { AvenxApp } from '../../lib/core/runtime/AvenxApp.js';
+import { AvenxPage } from '../../lib/core/runtime/AvenxPage.js';
+import { AvenxComponent } from '../../lib/core/runtime/AvenxComponent.js';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const waitForRaf = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));

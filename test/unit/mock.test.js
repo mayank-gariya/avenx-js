@@ -1,7 +1,7 @@
-const assert = require('assert');
-const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
-const { AvenxMock } = require('../../lib/core/index');
-const { setupDOMMock, teardownDOMMock } = require('../helpers/dom-mock');
+import assert from 'assert';
+import { AvenxComponent } from '../../lib/core/runtime/AvenxComponent.js';
+import { AvenxMock } from '../../lib/core/index.js';
+import { setupDOMMock, teardownDOMMock } from '../helpers/dom-mock.js';
 
 // Sample bridge definition for tests
 class SampleBridge {

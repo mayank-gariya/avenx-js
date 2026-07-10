@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 // 1. Die Mock-Klasse zur Verhaltensprüfung (Behavior Verification)
 /**
@@ -343,7 +343,7 @@ function teardownDOMMock() {
   delete global.requestAnimationFrame;
 }
 
-module.exports = {
+export {
   MockDOMElement,
   setupDOMMock,
   teardownDOMMock,

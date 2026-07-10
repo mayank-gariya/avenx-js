@@ -1,8 +1,8 @@
-const assert = require('assert');
-const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
-const { AvenxPage } = require('../../lib/core/runtime/AvenxPage');
-const StyleProcessor = require('../../lib/compiler/StyleProcessor');
-const ComponentParser = require('../../lib/compiler/ComponentParser');
+import assert from 'assert';
+import { AvenxComponent } from '../../lib/core/runtime/AvenxComponent.js';
+import { AvenxPage } from '../../lib/core/runtime/AvenxPage.js';
+import StyleProcessor from '../../lib/compiler/StyleProcessor.js';
+import ComponentParser from '../../lib/compiler/ComponentParser.js';
 
 // ==========================================
 // 1. Lightweight Mock DOM & HTML Parser

@@ -1,6 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const { fork } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { fork } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Determine which folder to run based on command line arguments
 // e.g. "node test/run-tests.js unit" or "node test/run-tests.js" for all

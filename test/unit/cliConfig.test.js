@@ -1,12 +1,12 @@
-const assert = require('assert');
-const path = require('path');
-const fs = require('fs');
+import assert from 'assert';
+import path from 'path';
+import fs from 'fs';
 
 // Set env to test so that loadConfig throws validation errors instead of process.exit
 process.env.NODE_ENV = 'test';
 
-const loadConfig = require('../../lib/config');
-const AvenxCompiler = require('../../lib/compiler');
+import loadConfig from '../../lib/config.js';
+import AvenxCompiler from '../../lib/compiler.js';
 
 try {
   console.log('🧪 Testing Avenx Config and Custom Directory CLI Options...');

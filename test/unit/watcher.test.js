@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 // Mock DOM environment
 const mockElement = {
@@ -31,10 +31,10 @@ global.DOMParser = class {
 
 global.Node = { ELEMENT_NODE: 1, TEXT_NODE: 3 };
 
-const { StateFactory } = require('../../lib/core/reactive/createState');
-const { AvenxWatcher } = require('../../lib/core/reactive/watcher');
-const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
-const { AvenxApp } = require('../../lib/core/runtime/AvenxApp');
+import { StateFactory } from '../../lib/core/reactive/createState.js';
+import { AvenxWatcher } from '../../lib/core/reactive/watcher.js';
+import { AvenxComponent } from '../../lib/core/runtime/AvenxComponent.js';
+import { AvenxApp } from '../../lib/core/runtime/AvenxApp.js';
 
 /**
  * Tests basic watcher tracking and callbacks.

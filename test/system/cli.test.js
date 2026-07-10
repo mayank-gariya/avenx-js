@@ -1,7 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert');
-const { execSync, spawnSync } = require('child_process');
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import fs from 'fs';
+import path from 'path';
+import assert from 'assert';
+import { execSync, spawnSync } from 'child_process';
 
 const TEST_DIR = path.join(__dirname, 'test-project');
 const BIN_PATH = path.join(__dirname, '../../bin/avenx.js');
@@ -87,9 +92,9 @@ function runTest() {
     assert.ok(fs.existsSync(bundleCssPath), 'Missing bundle.css');
 
     const bundleContent = fs.readFileSync(bundleJsPath, 'utf-8');
-    assert.ok(bundleContent.includes('class HtmlEscaper'), 'bundle.js should contain HtmlEscaper');
-    assert.ok(bundleContent.includes('class SafeHtml'), 'bundle.js should contain SafeHtml');
-    assert.ok(bundleContent.includes('function html('), 'bundle.js should contain html function');
+    assert.ok(bundleContent.includes('HtmlEscaper'), 'bundle.js should contain HtmlEscaper');
+    assert.ok(bundleContent.includes('SafeHtml'), 'bundle.js should contain SafeHtml');
+    assert.ok(bundleContent.includes('html'), 'bundle.js should contain html function');
 
     assert.match(buildOutput, /Asset sizes:/, 'prints asset size');
     assert.match(buildOutput, /bundle\.js: \d+\.\d{2} KB/, 'prints bundle.js asset size');

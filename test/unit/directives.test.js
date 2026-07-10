@@ -1,10 +1,16 @@
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-const StyleProcessor = require('../../lib/compiler/StyleProcessor');
-const ComponentParser = require('../../lib/compiler/ComponentParser');
-const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
-const { html } = require('../../lib/core/security/escapeHtml');
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import assert from 'assert';
+import fs from 'fs';
+import path from 'path';
+import StyleProcessor from '../../lib/compiler/StyleProcessor.js';
+import ComponentParser from '../../lib/compiler/ComponentParser.js';
+import { AvenxComponent } from '../../lib/core/runtime/AvenxComponent.js';
+import { html } from '../../lib/core/security/escapeHtml.js';
+import { logger } from '../../lib/core/runtime/AvenxLogger.js';
 
 // --- Mock DOM Implementation (reusing component_props.test.js mock DOM structure) ---
 class MockNode {
@@ -435,7 +441,7 @@ async function runTests() {
     fs.writeFileSync(tempFile, tempContent, 'utf-8');
 
     let loggedWarning = false;
-    const logger = require('../../lib/core/runtime/AvenxLogger').logger;
+
     const originalLoggerWarn = logger.warn;
     logger.warn = (msg) => {
       if (msg.includes('Undeclared variable') && msg.includes('undeclaredVar')) {

@@ -1,5 +1,7 @@
-const assert = require('assert');
-const { AvenxError, AvenxErrorCodes, formatMessage } = require('../../lib/core/runtime/AvenxError');
+import assert from 'assert';
+import { AvenxError, AvenxErrorCodes, formatMessage } from '../../lib/core/runtime/AvenxError.js';
+import { AvenxApp } from '../../lib/core/runtime/AvenxApp.js';
+import { AvenxComponent } from '../../lib/core/runtime/AvenxComponent.js';
 
 /**
  *
@@ -50,7 +52,7 @@ function testAppErrorHandling() {
     },
   };
 
-  const { AvenxApp } = require('../../lib/core/runtime/AvenxApp');
+
 
   // Test missing mount target throws AVX_R01
   assert.throws(
@@ -125,7 +127,7 @@ function testCircularComputedWarning() {
   };
   global.Node = { ELEMENT_NODE: 1, TEXT_NODE: 3 };
 
-  const { AvenxComponent } = require('../../lib/core/runtime/AvenxComponent');
+
 
   // Mock console.warn to capture circular computed warning
   const warnings = [];

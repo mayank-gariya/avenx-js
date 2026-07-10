@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const http = require('http');
-const { exec } = require('child_process');
-const AvenxCompiler = require('../lib/compiler');
-const loadConfig = require('../lib/config');
-const packageJson = require('../package.json');
+import fs from 'fs';
+import path from 'path';
+import http from 'http';
+import { exec } from 'child_process';
+import { fileURLToPath } from 'url';
+import AvenxCompiler from '../lib/compiler.js';
+import loadConfig from '../lib/config.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
 const findProjectRoot = loadConfig.findProjectRoot;
 
 const [, , command, ...args] = process.argv;
